@@ -1,35 +1,46 @@
 (function (global) {
-	var EE;
 
-	if (!global.UAM) {
-		global.UAM = {};
-	}
+if(!global.UAM) {
+	global.UAM = {};
+}
 
-	EE = function () {
-		//store the listeners somewhere
-		this.listeners = {};
+var EventEmitter;
+
+EventEmitter = function() {
+};
+
+	EventEmitter.prototype.on = function(eventName, listener, context) {
+		
+		var that = this;
+		
+		var objListener = {
+			f: listener,
+			k: context
+		};
+		
+		this.listenersArray = this.listenersArray || {};
+		this.listenersArray[eventName] = this.listenersArray[eventName] || [];
+		this.listenersArray[eventName].push(objListener);
+		
+		return function() {
+			var id = that.listenersArray[eventName].indexOf(objListener);
+			if ( id > -1) {
+				that.listenersArray[eventName].splice(id, 1);
+			}
+		}
+		
+		
 	};
 
-	EE.prototype.on = function (eventName, listener, context) {
-
-	};
-
-	EE.prototype.emit = function (eventName /*, other args...*/) {
-
-	};
-
-//	var ee = new EE();
-//
-//	var removeListener = ee.on('test', function (arg1, arg2) {
-//		console.log(arg1, arg2, this.key);
-//	}, { key: 'value' });
-//
-//	ee.emit('test', 1, 2); // 1, 2 value
-//
-//	removeListener(); //removes my listener from the event emitter;
-//
-//	ee.emit('test'); //nothing will execute
-
-	global.UAM.EventEmitter = EE;
-
+	EventEmitter.prototype.emit = function (eventName) {
+	
+		var args = Array.prototype.slice.call(arguments);
+		args.shift();
+		this.listenersArray[eventName].forEach(function (argumenty) {
+			argumenty.f.apply(argumenty.k, args);
+	});
+	
+	
+	global.UAM.EventEmitter = EventEmitter;
+	
 }(window));
