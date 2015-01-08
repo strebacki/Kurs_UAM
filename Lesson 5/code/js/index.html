@@ -1,0 +1,46 @@
+<html>
+<head>
+    
+<title> MVC toDoList </title>
+    
+</head>
+    
+    <body>
+        
+        <link rel="stylesheet" type="text/css" href="style.css">
+        
+        <script type="text/javascript" src="ee.js"></script>
+        <script type="text/javascript" src="utils.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript" src="view.js"></script>
+        <script type="text/javascript" src="control.js"></script>
+        <script type="text/javascript" src="store.js"></script>
+        
+        <!--<script type="text/javascript">
+            function clearThis(target){
+                target.value= "";
+            }
+        </script>-->
+        
+        [INPUT:]<br><br>
+        <div id="inputview">
+        
+        <input type=text id="newEntry" <!--onclick="clearThis(this)-->">
+        <button id="addButton"> ADD </button>
+            
+        </div>
+
+        
+        <br> [LIST:] <br>
+        
+        <ul id="listview"></ul>
+        
+        <div id="footerview">
+            [FOOTER:] <br><br>
+            ALL: <span id="allElements"> 0 </span><br>
+            ACTIVE : <sapn id="activeElements"> 0 </sapn>    
+        </div>
+    
+    </body>
+
+</html>
